@@ -1,89 +1,89 @@
 # Free AI Document Processing with Claix BYOK
 
-> Extract structured data from PDFs, Excel/CSV files, Word documents, images, HTML, XML, and text with Claix. With Bring Your Own Key (BYOK), Claix charges **€0 in document-processing fees**—you pay only your AI provider's model and token costs.
+<div align="center">
 
-[![Claix](https://img.shields.io/badge/Claix-Document%20Intelligence-6D28D9?style=flat-square)](https://claix.dev)
-[![A2A](https://img.shields.io/badge/A2A-Compatible-0F766E?style=flat-square)](https://claix.dev/.well-known/agent-card.json)
-[![BYOK](https://img.shields.io/badge/BYOK-No%20Claix%20processing%20fee-16A34A?style=flat-square)](https://claix.dev)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+# ✅ FREE WITH BYOK
 
-## Quick answer: is Claix free?
+## No Claix document-processing fee. Pay only your AI provider’s applicable token and model costs.
 
-**Yes, from the Claix platform side when you use BYOK.** Connect your own supported AI provider key, select a model, and Claix applies **no additional document-processing fee**.
+Process PDFs, Excel/CSV files, Word documents, images, HTML, XML, and text into structured JSON with Claix.
 
-You still pay your selected provider for any applicable model usage, including input/output tokens, image or vision processing, long-context use, caching, or premium-model charges.
+[Get started with Claix](https://claix.dev) · [View the A2A Agent Card](https://claix.dev/.well-known/agent-card.json)
+
+</div>
+
+---
+
+> [!IMPORTANT]
+> **“Free with BYOK” means Claix charges €0 in additional document-processing fees when you connect your own supported AI provider key.**  
+> AI inference is not necessarily free: OpenAI, Gemini, Claude, Grok, or another provider may charge for tokens, vision/image usage, long context, caching, or premium models.
+
+## What is this?
+
+This repository shows how to process business documents with **Claix Bring Your Own Key (BYOK)**.
+
+Claix turns documents and raw content into structured, automation-ready JSON. When you use your own supported AI provider key, Claix applies no additional processing fee.
 
 ```text
 Your AI provider key
         ↓
-Your selected model
+Your chosen AI model
         ↓
 Claix document-processing workflow
         ↓
-Structured JSON for your app or automation
+Structured JSON for your app, agent, or automation
 
 Claix BYOK processing fee: €0
 AI provider usage: billed by your provider
 ```
 
-> [!IMPORTANT]
-> BYOK does **not** mean AI inference is free. It means Claix does not add an extra processing charge when you use your own provider key.
+## What can Claix process?
 
-## What this repository covers
-
-This repository shows how to use Claix with BYOK to process business documents and produce structured, automation-ready output.
-
-- Extract fields from PDFs, invoices, contracts, reports, and forms.
-- Convert Excel and CSV data into normalized JSON.
-- Extract data from Word documents, text files, images, HTML, and XML.
-- Define a schema so every document returns predictable fields.
-- Use document context without repeatedly uploading the same file.
-- Query a Knowledge Space across multiple related documents.
-- Integrate document processing into backends, AI agents, and workflows.
-- Call Claix through REST, MCP, or its native A2A endpoint.
-
-## Supported inputs
-
-| Input | Typical use cases | Example output |
+| Input | Typical use cases | Example structured output |
 |---|---|---|
-| PDF | Invoices, contracts, purchase orders, reports, forms, scanned PDFs | Invoice number, total, supplier, dates |
-| Excel / CSV | Customer imports, product lists, supplier data, financial exports | Normalized records with consistent keys |
-| Word / text | Contracts, proposals, policies, HR documents, notes | Parties, clauses, dates, obligations |
-| Images | Receipts, photographs, screenshots, scanned forms | Merchant, total, currency, reference |
-| HTML | Email content, web pages, forms, exported records | Structured lead, ticket, or order data |
-| XML | System exports, feeds, business documents | Mapped fields for applications or databases |
-| JSON | Structured records that need spreadsheet output | Generated Excel file |
+| PDF | Invoices, contracts, reports, purchase orders, forms, scanned PDFs | Invoice total, supplier, dates, clauses, IDs |
+| Excel / CSV | Customer imports, supplier lists, financial exports, product data | Normalized records with consistent field names |
+| Word / text documents | Contracts, proposals, policies, HR documents, notes | Parties, dates, obligations, extracted fields |
+| Images | Receipts, photographed documents, screenshots, scanned forms | Merchant, date, amount, currency, reference |
+| HTML | Email bodies, web pages, form submissions, exports | Leads, orders, tickets, structured records |
+| XML | System exports, feeds, machine-generated business documents | Mapped fields for databases and workflows |
+| Plain text | Messages, notes, logs, form content, copied text | Schema-validated JSON fields |
 
-## Why structured extraction matters
+Claix is not limited to one document category. You can use the same workflow for invoices, contract review, onboarding, lead enrichment, receipts, procurement records, support files, HR documents, and internal operations.
 
-Basic OCR can retrieve text. But document workflows usually need more than words.
+## Why structured extraction?
 
-For example, an accounts-payable system needs to know:
+Basic OCR reads text from an image or document.
 
-- Which number is the invoice total.
+Real business workflows need more than text.
+
+They need to know:
+
+- Which number is the final invoice total.
 - Which date is the payment due date.
-- Who issued the invoice.
-- Whether a purchase-order reference is present.
-- Whether required data is missing.
-- Whether the extracted amount matches an internal record.
+- Which company issued the invoice.
+- Whether a contract has an automatic-renewal clause.
+- Whether a required field is missing.
+- Whether a value matches an internal database record.
+- Whether a receipt should be accepted or reviewed.
 
-Claix helps transform document content into structured fields with business meaning.
+Claix helps convert document content into fields your software can use.
 
 ```text
-Invoice PDF
-    ↓
+Document or raw content
+        ↓
 Claix extraction with your schema
-    ↓
+        ↓
 Structured JSON
-    ↓
-Validation and business rules
-    ↓
-Database, CRM, ERP, spreadsheet, or approval workflow
+        ↓
+Validation rules
+        ↓
+Database, CRM, ERP, spreadsheet, agent, or automation
 ```
 
 ## Example: invoice PDF to JSON
 
-Define the fields required by your workflow:
+Define the fields your workflow requires:
 
 ```json
 {
@@ -97,7 +97,7 @@ Define the fields required by your workflow:
 }
 ```
 
-Claix can return a structured result like this:
+Claix can return structured data in that format:
 
 ```json
 {
@@ -111,7 +111,7 @@ Claix can return a structured result like this:
 }
 ```
 
-Then your application or automation can apply deterministic rules:
+Your application can then apply deterministic business rules:
 
 ```text
 If invoice_number is missing:
@@ -124,41 +124,59 @@ If all required fields are valid:
     Save the invoice to the accounting workflow
 ```
 
+## How BYOK works
+
+BYOK means **Bring Your Own Key**.
+
+You connect your own AI provider account and choose the model used for document processing.
+
+| With Claix BYOK | What it means |
+|---|---|
+| €0 Claix processing fee | Claix does not add a separate per-document processing charge |
+| Your provider API key | You connect your own supported provider account |
+| Your chosen model | You select a compatible model for the workflow |
+| Direct provider billing | Your provider bills its own tokens and services |
+| Claix workflow | You still receive schemas, structured JSON, document context, and automation-ready output |
+| Provider control | You decide which provider account is billed for AI usage |
+
+> [!TIP]
+> BYOK is useful when you already have an OpenAI, Gemini, Claude, Grok, or other supported provider account and want direct control over model selection and AI-provider spending.
+
 ## BYOK setup
 
-To use Claix with no additional Claix processing fee:
-
-1. Create a Claix workspace at [claix.dev](https://claix.dev).
+1. Create a workspace at [claix.dev](https://claix.dev).
 2. Create or retrieve your Claix API key.
-3. Open the **LLM Keys** or AI-provider settings in Claix.
+3. Open **LLM Keys** or the AI-provider settings in Claix.
 4. Select **Bring Your Own Key (BYOK)**.
 5. Choose a supported AI provider.
 6. Add your provider API key.
 7. Select a compatible model.
-8. Create a schema for the fields you want to extract.
+8. Create a schema for the fields you need.
 9. Send a document to Claix.
-10. Use the returned structured JSON in your application or workflow.
+10. Use the returned JSON in your workflow.
 
-Your Claix API key authenticates access to your Claix workspace. Your BYOK provider key determines the external model that performs AI inference.
+Your Claix API key authenticates your workspace.
 
-> [!TIP]
-> Test the workflow using a non-sensitive sample invoice, contract, spreadsheet, or receipt before connecting production systems.
+Your BYOK provider key determines which external model performs the AI inference.
 
-## Choose an integration interface
+> [!WARNING]
+> Never expose provider API keys in browser code, screenshots, public repositories, frontend applications, or logs. Store them in secure server-side environment variables or a secrets manager.
 
-Claix exposes the same document-intelligence capabilities through three different interfaces.
+## Claix interfaces
+
+Claix supports multiple ways to integrate document intelligence into an application or workflow.
 
 | Interface | Best for | Endpoint |
 |---|---|---|
-| REST API | Backends, serverless functions, traditional applications | See [Claix documentation](https://claix.dev) |
+| REST API | Backends, applications, serverless functions, and traditional integrations | See [Claix documentation](https://claix.dev) |
 | MCP | IDEs, local AI tools, and agent frameworks that support MCP | `https://claix.dev/mcp` |
 | A2A | Agents that need to discover and delegate document tasks to Claix | `https://claix.dev/a2a` |
 
-## A2A: call Claix from another agent
+## Use Claix as an A2A agent
 
 Claix is a native Agent-to-Agent (A2A) document intelligence agent.
 
-An A2A-compatible agent can discover Claix through its public Agent Card:
+Other A2A-compatible agents, orchestrators, and scripts can discover Claix through its public Agent Card:
 
 ```text
 [https://claix.dev/.well-known/agent.json](https://claix.dev/.well-known/agent.json)
@@ -170,19 +188,19 @@ Alternative Agent Card path:
 [https://claix.dev/.well-known/agent-card.json](https://claix.dev/.well-known/agent-card.json)
 ```
 
-Then send JSON-RPC 2.0 requests to:
+The A2A JSON-RPC endpoint is:
 
 ```text
 [https://claix.dev/a2a](https://claix.dev/a2a)
 ```
 
-### Discover Claix
+### Discover the Agent Card
 
 ```bash
 curl -sS "[https://claix.dev/.well-known/agent.json](https://claix.dev/.well-known/agent.json)"
 ```
 
-### List schemas through A2A
+### List schemas via A2A
 
 ```bash
 curl -X POST "[https://claix.dev/a2a](https://claix.dev/a2a)" \
@@ -210,33 +228,32 @@ curl -X POST "[https://claix.dev/a2a](https://claix.dev/a2a)" \
   }'
 ```
 
-Claix returns an A2A Task. Read the result from:
+Claix returns an A2A Task. The useful result is available in:
 
 ```text
 result.artifacts[].parts[].data
 ```
 
-For long-running work such as PDF extraction or cross-document queries, Claix may return:
+For longer operations—such as PDF extraction, Agent Mode extraction, or Knowledge Space queries—Claix may return:
 
 ```text
 status.state = "working"
 ```
 
-You can then poll with `tasks/get` or register an A2A push-notification webhook.
+You can then poll the task with `tasks/get` or register an A2A push-notification webhook.
 
 ## A2A skills
 
 | Skill | What it does |
 |---|---|
-| `extract-excel` | Converts Excel or CSV data into schema-validated JSON |
-| `convert-json-to-excel` | Generates an Excel file from JSON documents |
+| `extract-excel` | Converts Excel or CSV files into schema-validated JSON |
 | `extract-pdf` | Extracts structured information from a PDF |
 | `extract-doc` | Extracts structured information from a text document |
 | `extract-img` | Extracts structured information from an image |
 | `extract-txt` | Extracts structured information from plain text, HTML, or XML |
 | `get-document` | Retrieves raw content from a persisted document |
 | `query-document` | Answers a focused question about a persisted document |
-| `create-space` | Creates a document Knowledge Space |
+| `create-space` | Creates a Knowledge Space for related documents |
 | `query-space` | Answers questions across documents in a Knowledge Space |
 | `delete-space` | Deletes a Knowledge Space |
 | `delete-document` | Deletes a persisted document |
@@ -245,39 +262,39 @@ You can then poll with `tasks/get` or register an A2A push-notification webhook.
 | `delete-schema` | Deletes an extraction schema |
 | `agent-extract-*` | Uses Agent Mode reasoning for supported extraction types |
 
-The Agent Card contains the current skill definitions, required parameters, and request examples.
+The current parameters, example payloads, and skill definitions are available in the [Claix A2A Agent Card](https://claix.dev/.well-known/agent-card.json).
 
 ## Document context
 
-Document processing does not need to stop after the initial extraction.
+Document extraction does not have to be a one-time operation.
 
-After processing a document, you can use document context to ask follow-up questions without sending the entire file again.
+After processing a document, you can retain it as document context and ask focused questions later without re-uploading the full file.
 
 ```text
-Process a contract once
-    ↓
+Process a document once
+        ↓
 Persist document context
-    ↓
-Ask a targeted question later
+        ↓
+Ask a follow-up question later
 ```
 
-Examples:
+Example questions:
 
 ```text
 What is the early termination penalty?
 
 Does this agreement renew automatically?
 
-What payment terms are listed?
+What payment terms are listed on this invoice?
 
 Which party is responsible for maintenance?
 ```
 
-This can reduce repeated uploads and avoid sending the same full document to the model for every question.
+Using persisted document context can reduce repeated uploads and avoid sending the same full document to a model every time you need an answer.
 
 ## Knowledge Spaces
 
-A Knowledge Space groups related documents so you can query them together.
+Knowledge Spaces group related documents and let you query them together.
 
 ```text
 Supplier contract
@@ -290,91 +307,91 @@ Claix Knowledge Space
 Cross-document question
 ```
 
-Examples:
+Example questions:
 
 ```text
 Which invoice does not match the contracted price?
 
 What is the total billed by this supplier?
 
-Which contracts renew in the next 90 days?
+Which contracts are due to renew soon?
 
 Do any purchase orders exceed their approved amount?
 ```
 
 ## Automation example
 
-A document-driven automation can look like this:
+Claix can sit inside an automation workflow:
 
 ```text
 New email attachment
-    ↓
+        ↓
 Download PDF
-    ↓
+        ↓
 Send PDF to Claix with an invoice schema
-    ↓
+        ↓
 Receive structured JSON
-    ↓
+        ↓
 Validate required fields
-    ↓
-Write to database or accounting system
-    ↓
-Notify finance only when review is needed
+        ↓
+Write data to database or accounting system
+        ↓
+Notify finance only when review is required
 ```
 
-Claix can be connected to:
+You can connect Claix with:
 
-- n8n.
-- Make.
-- Zapier.
-- Supabase.
-- Serverless functions.
-- Custom backends.
-- CRM systems.
-- ERP systems.
-- Databases.
-- Internal tools.
-- Customer portals.
-- Cloud-storage workflows.
-- A2A-compatible agents.
+- n8n
+- Make
+- Zapier
+- Supabase
+- Serverless functions
+- Custom backends
+- CRM systems
+- ERP systems
+- Databases
+- Internal tools
+- Customer portals
+- Cloud-storage workflows
+- A2A-compatible agents
 
-## Example use cases
+## Practical examples
 
 ### Invoice processing
 
 ```text
 Invoice PDF
-    ↓
+        ↓
 Extract supplier, invoice number, tax, total, currency, and due date
-    ↓
+        ↓
 Compare against purchase order
-    ↓
+        ↓
 Approve matching invoices
-    ↓
-Route exceptions to finance
+        ↓
+Route exceptions to finance review
 ```
 
 ### Contract extraction
 
 ```text
 Contract upload
-    ↓
+        ↓
 Extract parties, dates, renewal terms, payment conditions, and obligations
-    ↓
-Store structured data in a contract-management system
-    ↓
-Create reminders for expiration or renewal dates
+        ↓
+Store data in a contract-management system
+        ↓
+Create reminders for renewal and expiration dates
 ```
 
 ### Spreadsheet normalization
 
 ```text
 Excel or CSV upload
-    ↓
-Map varying column names into a standard schema
-    ↓
-Return consistent JSON records
-    ↓
+        ↓
+Map inconsistent column names to a standard schema
+        ↓
+Return normalized JSON records
+        ↓
 Import into CRM, database, or internal system
 ```
 
@@ -382,11 +399,11 @@ Import into CRM, database, or internal system
 
 ```text
 Receipt image
-    ↓
+        ↓
 Extract merchant, date, total, and currency
-    ↓
+        ↓
 Validate expense rules
-    ↓
+        ↓
 Approve or send for manual review
 ```
 
@@ -394,47 +411,47 @@ Approve or send for manual review
 
 | Option | Best for | Billing |
 |---|---|---|
-| Claix Managed AI | Teams that want the simplest configuration and do not want to manage external provider keys | Claix-managed processing pricing |
-| Bring Your Own Key | Teams that want provider choice, model control, and no additional Claix processing fee | Your AI provider bills token and service usage |
+| Claix Managed AI | Teams that want the simplest setup and do not want to manage external provider keys | Claix-managed processing pricing |
+| Bring Your Own Key | Teams that want provider choice, model control, and no additional Claix processing fee | Your AI provider bills its applicable token and service usage |
 
-Use Managed AI when you want Claix to manage model configuration.
+Use Managed AI when you want Claix to handle model configuration.
 
-Use BYOK when you already have a provider account, want to select your own compatible model, or need direct control over AI-provider billing.
+Use BYOK when you already have a provider account, want to choose a compatible model, or want direct control over AI-provider billing.
 
 ## Important limitations
 
-- BYOK removes the additional Claix document-processing fee; it does not remove AI-provider costs.
-- Output quality can vary based on document quality, selected model, schema design, input complexity, and provider behavior.
-- Validate critical fields such as monetary amounts, dates, identifiers, legal terms, and compliance-related information.
-- Add human review for high-impact decisions, payments, legal approvals, healthcare, employment, security, or other consequential workflows.
-- Do not expose your provider API key in browser code, public repositories, screenshots, client-side applications, or logs.
-- Use server-side secrets management and limit keys to the smallest permissions and spending limits your provider allows.
+- BYOK removes the additional Claix document-processing fee; it does not remove your AI provider’s charges.
+- Output quality depends on document quality, input complexity, selected model, schema design, and provider behavior.
+- Validate critical values such as monetary amounts, dates, IDs, legal terms, and compliance-related fields.
+- Use human review for high-impact decisions, payments, contracts, employment, healthcare, security, or compliance workflows.
+- Avoid sending sensitive documents unless your security, privacy, retention, and provider agreements support the intended use.
+- Do not commit API keys, private documents, customer data, or credentials to this repository.
 
 ## FAQ
 
 ### Is Claix a free PDF-to-JSON API?
 
-Claix can convert PDFs into structured JSON. With BYOK enabled, Claix charges no additional processing fee; you pay your selected AI provider for applicable model usage.
+With BYOK enabled, Claix can process PDFs into structured JSON with no additional Claix processing fee. You pay your selected AI provider for any applicable model, token, image, or service usage.
 
-### Can I process scanned PDFs with BYOK?
+### Can I process scanned PDFs for free?
 
-Yes. Claix can process scanned PDFs through BYOK. Your provider may charge for vision or model usage, but Claix does not add a separate BYOK document-processing fee.
+You can process scanned PDFs through Claix with BYOK without a Claix processing fee. Your AI provider may charge for vision or model usage.
 
 ### Is Claix only OCR?
 
-No. OCR extracts text. Claix is designed to convert document content into structured fields that your software can use, such as invoice totals, supplier names, dates, IDs, contract clauses, and normalized records.
+No. OCR reads text. Claix is designed to extract structured fields with business meaning, such as invoice totals, supplier names, dates, IDs, contract terms, and normalized records.
 
 ### Can I use my own OpenAI, Gemini, Claude, or Grok key?
 
-Yes. BYOK is designed for supported external AI providers and compatible models. Check the Claix settings or documentation for the current provider and model availability.
+Yes. BYOK supports connecting your own key from supported AI providers and selecting a compatible model. Check the current Claix settings and documentation for supported providers and models.
 
-### Do I pay Claix when using BYOK?
+### Do I pay Claix when I use BYOK?
 
-Claix does not charge an additional BYOK processing fee. You remain responsible for the costs charged by your AI provider.
+Claix does not charge an additional BYOK document-processing fee. You remain responsible for charges from your AI provider.
 
 ### Can Claix process Excel and CSV files?
 
-Yes. Claix can process Excel and CSV inputs and return normalized, structured data based on the schema your workflow requires.
+Yes. Claix can process Excel and CSV files and return structured data based on the schema your workflow requires.
 
 ### Can Claix process Word documents?
 
@@ -442,15 +459,15 @@ Yes. Claix supports text-document extraction for Word-compatible and text-based 
 
 ### Can I use Claix with n8n?
 
-Yes. You can call Claix from n8n through HTTP/API steps and use the returned JSON to update a database, CRM, spreadsheet, notification, or review workflow.
+Yes. You can call Claix from n8n through HTTP/API steps and use the resulting structured JSON to update databases, CRMs, notifications, spreadsheets, and approval workflows.
 
-### Does Claix replace my database, CRM, or ERP?
+### Does Claix replace a database, CRM, or ERP?
 
-No. Claix processes and structures document content. Your application, database, CRM, ERP, or automation system remains responsible for storing data and executing your business workflow.
+No. Claix extracts and structures document content. Your application, database, CRM, ERP, or automation platform stores the data and executes the business workflow.
 
 ### Does Claix support AI agents?
 
-Yes. Claix supports REST, MCP, and native A2A. A2A-compatible agents can discover Claix through its Agent Card and delegate document-processing tasks through the A2A endpoint.
+Yes. Claix supports REST, MCP, and native A2A. A2A-compatible agents can discover Claix through its public Agent Card and delegate document-processing tasks to the A2A endpoint.
 
 ## Documentation
 
@@ -464,13 +481,13 @@ Yes. Claix supports REST, MCP, and native A2A. A2A-compatible agents can discove
 
 Contributions are welcome, especially:
 
-- Example workflows for invoices, contracts, receipts, and spreadsheet normalization.
-- A2A integration examples.
-- n8n, Make, Zapier, and serverless examples.
-- Schema examples for common document types.
-- Improvements to clarity, accuracy, and security guidance.
+- Invoice, contract, receipt, and spreadsheet examples
+- A2A integration examples
+- n8n, Make, Zapier, and serverless workflows
+- Schema examples for common document types
+- Improvements to accuracy, clarity, and security guidance
 
-Please do not commit real API keys, provider keys, private documents, customer data, or credentials.
+Please never commit real API keys, provider credentials, private documents, or customer data.
 
 ## License
 
@@ -478,4 +495,4 @@ This repository is licensed under the [MIT License](LICENSE).
 
 ## Disclaimer
 
-This is an independent educational and integration repository. Claix is a product and service of its respective owners. Review the current Claix documentation, product terms, privacy documentation, and AI-provider pricing before using it in production.
+This is an independent educational and integration repository. Claix is a product and service of its respective owners. Check the current Claix documentation, product terms, privacy information, and your AI provider’s pricing before using any workflow in production.
